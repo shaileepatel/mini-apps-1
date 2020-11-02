@@ -15,8 +15,7 @@
   "scripts": {
     "babel": "./node_modules/.bin/babel client --out-dir public --presets @babel/preset-react --source-maps inline --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "open": "live-server"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
