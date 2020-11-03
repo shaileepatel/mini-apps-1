@@ -18,10 +18,15 @@ class App extends React.Component {
 
   clickCheckout(event){
     console.log('clicked');
-    this.setState({
-      showCheckout: false,
-      showForm1: true
-    });
+    axios.post('/newUser')
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        showCheckout: false,
+        showForm1: true
+      });
+    })
+    .catch((err) => {console.log(err);})
   }
 
   submitForm1(event) {
@@ -58,6 +63,14 @@ class App extends React.Component {
       showCheckout: true
     })
   }
+
+  // componentDidMount() {
+  //   // send a get request with axios
+  //   axios.get('/users')
+  //   .then((data) => {console.log(data)})
+  //   .catch((err) => {console.log(err);})
+  //   // this.setState({groceries: dummyData})
+  // }
 
   render() {
     return (
