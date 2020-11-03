@@ -21,7 +21,19 @@ app.get('/users', (req, res) => {
 
 app.post('/newUser', (req, res) => {
   res.send('yoo');
-})
+});
+
+app.post('/userInfo', (req, res) => {
+  res.send('hiiiiii');
+});
+
+app.post('/userAddress', (req, res) => {
+  res.send('address dedo');
+});
+
+app.post('/userCardInfo', (req, res) => {
+  res.send('card dedo');
+});
 
 app.post('/users', (req, res) => {
   var query = `INSERT INTO users (name, email, password, line1, line2, city, state, zipcode, phoneNum, cardNum, expiry, cvv, cardZipcode) VALUES ('kp', 'kp@gmail.com', '1234', 'abc road', '', 'San Francisco', 'CA', 63425, 746298765, 268462976, '06/24', 554, 56397)`;

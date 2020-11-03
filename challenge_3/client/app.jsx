@@ -32,28 +32,47 @@ class App extends React.Component {
   submitForm1(event) {
     event.preventDefault();
     console.log('form 1 clicked');
-    this.setState({
-      showForm1: false,
-      showForm2: true
+    axios.post('/userInfo')
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        showForm1: false,
+        showForm2: true
+      });
     })
+    .catch((err) => {console.log(err);})
   }
 
   submitForm2(event) {
     event.preventDefault();
     console.log('form 2 clicked');
-    this.setState({
-      showForm2: false,
-      showForm3: true
+    axios.post('/userAddress')
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        showForm2: false,
+        showForm3: true
+      });
     })
+    .catch((err) => {console.log(err);})
   }
 
   submitForm3(event) {
     event.preventDefault();
     console.log('form 3 clicked');
-    this.setState({
-      showForm3: false,
-      showPurchase: true
+    axios.post('/userCardInfo')
+    .then((response) => {
+      console.log(response);
+      return axios.get('/users')
     })
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        showForm3: false,
+        showPurchase: true
+      });
+    })
+    .catch((err) => {console.log(err);})
   }
 
   clickPurchase(event) {
@@ -63,14 +82,6 @@ class App extends React.Component {
       showCheckout: true
     })
   }
-
-  // componentDidMount() {
-  //   // send a get request with axios
-  //   axios.get('/users')
-  //   .then((data) => {console.log(data)})
-  //   .catch((err) => {console.log(err);})
-  //   // this.setState({groceries: dummyData})
-  // }
 
   render() {
     return (
