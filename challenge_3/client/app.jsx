@@ -271,5 +271,3 @@ var Purchase = (props) => {
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'));
-
-
