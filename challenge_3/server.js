@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 var db = require('./db/connection.js');
 
 app.get('/users', (req, res) => {
-  db.connection.query('SELECT * from users', (err , data) => {
+  console.log(req.query);
+  db.connection.query(`SELECT * from users where id = ${req.query.id}`, (err , data) => {
     if (err) {
       console.log(err);
       res.sendStatus(404);
@@ -69,8 +70,7 @@ app.post('/userCardInfo', (req, res) => {
       console.log(err);
       res.sendStatus(404);
     } else {
-      console.log(data);
-      res.json(data);
+      res.sendStatus(200);
     }
   })
 });

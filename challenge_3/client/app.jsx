@@ -8,7 +8,8 @@ class App extends React.Component {
       showForm2: false,
       showForm3: false,
       showPurchase: false,
-      id: 0
+      id: 0,
+      purchaseDetails: {}
     }
     this.clickCheckout = this.clickCheckout.bind(this);
     this.submitForm1 = this.submitForm1.bind(this);
@@ -63,14 +64,17 @@ class App extends React.Component {
     cardInfo.id = this.state.id;
     axios.post('/userCardInfo', cardInfo)
     .then((response) => {
-      console.log(response);
-      return axios.get('/users')
+      return axios.get('/users', {
+        params : {
+          id: this.state.id
+        }
+      });
     })
     .then((response) => {
-      console.log(response);
       this.setState({
         showForm3: false,
-        showPurchase: true
+        showPurchase: true,
+        purchaseDetails: response.data[0]
       });
     })
     .catch((err) => {console.log(err);})
@@ -91,7 +95,7 @@ class App extends React.Component {
         {this.state.showForm1 ? <Form1 submitForm1 = {this.submitForm1}/> : null}
         {this.state.showForm2 ? <Form2 submitForm2 = {this.submitForm2}/> : null}
         {this.state.showForm3 ? <Form3 submitForm3 = {this.submitForm3}/> : null}
-        {this.state.showPurchase ? <Purchase clickPurchase = {this.clickPurchase}/> : null}
+        {this.state.showPurchase ? <Purchase clickPurchase = {this.clickPurchase} purchaseDetails = {this.state.purchaseDetails}/> : null}
       </div>
     );
   }
@@ -247,7 +251,22 @@ class Form3 extends React.Component {
 
 var Purchase = (props) => {
   return (
-    <button onClick = {props.clickPurchase}>Purchase</button>
+    <div>
+      <div>Name: {props.purchaseDetails.name}</div>
+      <div>Email: {props.purchaseDetails.email}</div>
+      <div>Password: *****</div>
+      <div>Line 1: {props.purchaseDetails.line1}</div>
+      <div>Line 2: {props.purchaseDetails.line2}</div>
+      <div>City: {props.purchaseDetails.city}</div>
+      <div>State: {props.purchaseDetails.state}</div>
+      <div>Zipcode: {props.purchaseDetails.zipcode}</div>
+      <div>Phone Number: {props.purchaseDetails.phoneNum}</div>
+      <div>Credit Card: {props.purchaseDetails.cardNum}</div>
+      <div>Expiry Date: {props.purchaseDetails.expiry}</div>
+      <div>CVV: {props.purchaseDetails.cvv}</div>
+      <div>Zipcode: {props.purchaseDetails.cardZipcode}</div>
+      <button onClick = {props.clickPurchase}>Purchase</button>
+    </div>
   )
 }
 
