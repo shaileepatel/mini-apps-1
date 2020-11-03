@@ -158,7 +158,7 @@ class Form3 extends React.Component {
       cardNum: '',
       expiry: '',
       cvv: '',
-      zipcode: ''
+      cardZipcode: ''
     }
   }
 
@@ -177,7 +177,7 @@ class Form3 extends React.Component {
             <input name='cvv' value={this.state.cvv}/>
           </label>
           <label>Zipcode
-            <input name='zipcode' value={this.state.zipcode}/>
+            <input name='cardZipcode' value={this.state.cardZipcode}/>
           </label>
           <button onClick={this.props.submitForm3}>Next</button>
         </form>
