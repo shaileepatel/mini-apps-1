@@ -1,10 +1,12 @@
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 var app = express();
 var PORT = 3000;
 
 var publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory));
+app.use(bodyParser.json());
 
 var db = require('./db/connection.js');
 
@@ -20,23 +22,7 @@ app.get('/users', (req, res) => {
 });
 
 app.post('/newUser', (req, res) => {
-  res.send('yoo');
-});
-
-app.post('/userInfo', (req, res) => {
-  res.send('hiiiiii');
-});
-
-app.post('/userAddress', (req, res) => {
-  res.send('address dedo');
-});
-
-app.post('/userCardInfo', (req, res) => {
-  res.send('card dedo');
-});
-
-app.post('/users', (req, res) => {
-  var query = `INSERT INTO users (name, email, password, line1, line2, city, state, zipcode, phoneNum, cardNum, expiry, cvv, cardZipcode) VALUES ('kp', 'kp@gmail.com', '1234', 'abc road', '', 'San Francisco', 'CA', 63425, 746298765, 268462976, '06/24', 554, 56397)`;
+  var query = `INSERT INTO users VALUES ()`;
   db.connection.query(query, (err, data) => {
     if (err) {
       console.log(err);
@@ -44,6 +30,48 @@ app.post('/users', (req, res) => {
     } else {
       console.log(data);
       res.sendStatus(200);
+    }
+  })
+});
+
+app.post('/userInfo', (req, res) => {
+  var user = req.body;
+  var query = `UPDATE users SET name = '${user.name}', email = '${user.email}', password = '${user.password}' where id = ${user.id}`;
+  db.connection.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(404);
+    } else {
+      console.log(data);
+      res.sendStatus(200);
+    }
+  })
+});
+
+app.post('/userAddress', (req, res) => {
+  var user = req.body;
+  var query = `UPDATE users SET line1 = '${user.line1}', line2 = '${user.line2}', city = '${user.city}', state = '${user.state}', zipcode = ${user.zipcode}, phoneNum = ${user.phoneNum} where id = ${user.id}`;
+  db.connection.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(404);
+    } else {
+      console.log(data);
+      res.sendStatus(200);
+    }
+  })
+});
+
+app.post('/userCardInfo', (req, res) => {
+  var user = req.body;
+  var query = `UPDATE users SET cardNum = ${user.cardNum}, expiry = '${user.expiry}', cvv = ${user.cvv}, cardZipcode = ${user.cardZipcode} where id = ${user.id}`;
+  db.connection.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(404);
+    } else {
+      console.log(data);
+      res.json(data);
     }
   })
 });
