@@ -23,5 +23,3 @@ CREATE DATABASE users;
    cvv INT(5),
    cardZipcode INT(10)
  );
-
---  INSERT INTO groceries(name, quantity, purchased) VALUES ('Chocolates', 2, 1);
