@@ -28,8 +28,7 @@ app.post('/newUser', (req, res) => {
       console.log(err);
       res.sendStatus(404);
     } else {
-      console.log(data);
-      res.sendStatus(200);
+      res.json(data.insertId);
     }
   })
 });
