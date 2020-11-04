@@ -13,18 +13,26 @@ var pairs = [
 
 var count = 0;
 
+var endGame = false;
+
+
 for (var i = 0; i < tiles.length; i++) {
   tiles[i].addEventListener("click", (event) => {
     if (event.target.textContent) {
       return;
     }
-    event.target.textContent = (count % 2 === 0 ? 'X' : 'O');
-    if (didWin()) {
-      console.log("win")
-    } else {
-      console.log('move on')
+    if (endGame) {
+      return;
     }
+    event.target.textContent = (count % 2 === 0 ? 'X' : 'O');
     count++;
+    if (didWin()) {
+      endGame = true;
+      return;
+    }
+    if (count === 9) {
+      endGame = true;
+    }
   });
 }
 
