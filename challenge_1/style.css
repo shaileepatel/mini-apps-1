@@ -6,6 +6,7 @@ body {
 table {
   margin: 50px auto;
   border-collapse: collapse;
+  cursor: pointer;
 }
 
 td {
@@ -20,11 +21,17 @@ h1 {
   text-align: center;
 }
 
-h2 {
+#decision {
   text-align: center;
 }
 
-button {
+#restart {
   margin: 0 auto;
   display: block;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 8px;
+  background-color: #30475e;
+  cursor: pointer;
 }

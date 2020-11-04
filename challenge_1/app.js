@@ -1,7 +1,6 @@
 var tiles = document.getElementsByTagName("td");
 var decision = document.getElementById("decision");
 var restart = document.getElementById('restart')
-
 var pairs = [
   [tiles[0], tiles[1], tiles[2]],
   [tiles[3], tiles[4], tiles[5]],
@@ -12,9 +11,7 @@ var pairs = [
   [tiles[0], tiles[4], tiles[8]],
   [tiles[2], tiles[4], tiles[6]],
 ]
-
 var count = 0;
-
 var endGame = false;
 
 for (var i = 0; i < tiles.length; i++) {
