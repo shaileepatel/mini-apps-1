@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #faf0af;
+}
+
+table {
+  margin: 50px auto;
+  border-collapse: collapse;
+}
+
+td {
+  border: solid black 3px;
+  padding: 20px;
+  width: 20px;
+  height: 64px;
+}
+
+h1 {
+  margin-top: 50px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  margin: 0 auto;
+  display: block;
+}
