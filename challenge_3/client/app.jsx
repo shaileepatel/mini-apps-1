@@ -74,7 +74,7 @@ class App extends React.Component {
       this.setState({
         showForm3: false,
         showPurchase: true,
-        purchaseDetails: response.data[0]
+        purchaseDetails: response.data
       });
     })
     .catch((err) => {console.log(err);})

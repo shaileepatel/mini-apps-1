@@ -8,11 +8,10 @@ var publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory));
 app.use(bodyParser.json());
 
-var db = require('./db/connection.js');
+var db = require('./db/mongodb');
 
 app.get('/users', (req, res) => {
-  console.log(req.query);
-  db.connection.query(`SELECT * from users where id = ${req.query.id}`, (err , data) => {
+  db.getUserInfo(req.query.id, (err , data) => {
     if (err) {
       console.log(err);
       res.sendStatus(404);
@@ -22,58 +21,35 @@ app.get('/users', (req, res) => {
   })
 });
 
+var updateUser = (req, res) => {
+  var user = req.body;
+  db.updateUser(req.body, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(200);
+    }
+  })
+};
+
 app.post('/newUser', (req, res) => {
-  var query = `INSERT INTO users VALUES ()`;
-  db.connection.query(query, (err, data) => {
+  db.newUser((err, data) => {
     if (err) {
       console.log(err);
       res.sendStatus(404);
     } else {
-      res.json(data.insertId);
+      res.json(data._id);
     }
   })
 });
 
-app.post('/userInfo', (req, res) => {
-  var user = req.body;
-  var query = `UPDATE users SET name = '${user.name}', email = '${user.email}', password = '${user.password}' where id = ${user.id}`;
-  db.connection.query(query, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(404);
-    } else {
-      console.log(data);
-      res.sendStatus(200);
-    }
-  })
-});
+app.post('/userInfo', updateUser);
 
-app.post('/userAddress', (req, res) => {
-  var user = req.body;
-  var query = `UPDATE users SET line1 = '${user.line1}', line2 = '${user.line2}', city = '${user.city}', state = '${user.state}', zipcode = ${user.zipcode}, phoneNum = ${user.phoneNum} where id = ${user.id}`;
-  db.connection.query(query, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(404);
-    } else {
-      console.log(data);
-      res.sendStatus(200);
-    }
-  })
-});
+app.post('/userAddress', updateUser);
 
-app.post('/userCardInfo', (req, res) => {
-  var user = req.body;
-  var query = `UPDATE users SET cardNum = ${user.cardNum}, expiry = '${user.expiry}', cvv = ${user.cvv}, cardZipcode = ${user.cardZipcode} where id = ${user.id}`;
-  db.connection.query(query, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(404);
-    } else {
-      res.sendStatus(200);
-    }
-  })
-});
+app.post('/userCardInfo', updateUser);
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
